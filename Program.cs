@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main()
     {
-        var (year, dayInt) = (2023, 9);
+        var (year, dayInt) = (2023, 13);
 
         string day = dayInt.ToString("D2");
         string filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/{year}/Day{day}/input{day}.txt";
