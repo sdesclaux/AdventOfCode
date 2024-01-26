@@ -10,8 +10,8 @@ namespace AdventOfCode
             int sum = 0;
             foreach (var row in rows)
             {
-                int.TryParse(Regex.Match(row, @"\d").Value, out int firstdigit);
-                int.TryParse(Regex.Match(row, @"\d", RegexOptions.RightToLeft).Value, out int lastDigit);
+                _ = int.TryParse(Regex.Match(row, @"\d").Value, out int firstdigit);
+                _ = int.TryParse(Regex.Match(row, @"\d", RegexOptions.RightToLeft).Value, out int lastDigit);
                 int result = int.Parse((firstdigit.ToString() + lastDigit.ToString()));
                 sum += result;
             }
