@@ -22,7 +22,7 @@
             foreach (string s in setss)
             {
                 string[] colors = s.Split(",");
-                Dictionary<string, int> setdict = new Dictionary<string, int>();
+                Dictionary<string, int> setdict = new();
                 foreach (string c in colors)
                 {
                     string[] cc = c.Trim().Split(" ");
@@ -44,9 +44,9 @@
                 bool isValidGame = true;
                 foreach (Dictionary<string, int> set in item.Sets)
                 {
-                    int red = set.ContainsKey("red") ? set["red"] : 0; ;
+                    int red = set.ContainsKey("red") ? set["red"] : 0;
                     int green = set.ContainsKey("green") ? set["green"] : 0;
-                    int blue = set.ContainsKey("blue") ? set["blue"] : 0; ;
+                    int blue = set.ContainsKey("blue") ? set["blue"] : 0;
                     if (isValidGame && (red > maxred || green > maxgreen || blue > maxblue))
                         isValidGame = false;
                 }
@@ -62,12 +62,12 @@
             var lines = input.Split("\n");
             int result = 0;
 
-            List<Game> games = new List<Game>();
+            List<Game> games = new();
             int i = 1;
 
             foreach (var line in lines)
             {
-                Game game = new Game
+                Game game = new()
                 {
                     Numero = i,
                     Sets = new List<Dictionary<string, int>>(),
@@ -78,7 +78,7 @@
                 foreach (string s in setss)
                 {
                     string[] colors = s.Split(",");
-                    Dictionary<string, int> setdict = new Dictionary<string, int>();
+                    Dictionary<string, int> setdict = new();
                     foreach (string c in colors)
                     {
                         string[] cc = c.Trim().Split(" ");
@@ -99,9 +99,9 @@
                 int maxblue = 0;
                 foreach (Dictionary<string, int> set in item.Sets)
                 {
-                    int red = set.ContainsKey("red") ? set["red"] : 0; ;
+                    int red = set.ContainsKey("red") ? set["red"] : 0;
                     int green = set.ContainsKey("green") ? set["green"] : 0;
-                    int blue = set.ContainsKey("blue") ? set["blue"] : 0; ;
+                    int blue = set.ContainsKey("blue") ? set["blue"] : 0;
                     if (red > maxred)
                         maxred = red;
                     if (green > maxgreen)
@@ -119,7 +119,7 @@
         public record Game
         {
             public int Numero { get; set; }
-            public List<Dictionary<string, int>> Sets { get; set;}
+            public List<Dictionary<string, int>> Sets { get; set; }
         }
     }
 }

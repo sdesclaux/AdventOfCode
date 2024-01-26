@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace AdventOfCode
 {
@@ -12,13 +13,9 @@ namespace AdventOfCode
 
             IEnumerable<int> enumerable()
             {
-                foreach (var n in nums)
-                {
-                    if (symbols.Any(s => IsAdjacent(n, s)))
-                    {
-                        yield return n.Number;
-                    }
-                }
+                return from NumberPosition n in nums
+                       where symbols.Any(s => IsAdjacent(n, s))
+                       select n.Number;
             }
 
             return enumerable().Sum();
@@ -47,7 +44,7 @@ namespace AdventOfCode
 
         static SymbolPosition[] ParseSymbols(string[] rows, Regex regex)
         {
-            List<SymbolPosition> symbols = new List<SymbolPosition>();
+            List<SymbolPosition> symbols = new();
 
             for (int i = 0; i < rows.Length; i++)
             {
@@ -59,7 +56,7 @@ namespace AdventOfCode
                     string value = match.Value;
                     int index = match.Index;
 
-                    SymbolPosition symbolPosition = new SymbolPosition(value, i, index);
+                    SymbolPosition symbolPosition = new(value, i, index);
                     symbols.Add(symbolPosition);
                 }
             }
@@ -70,7 +67,7 @@ namespace AdventOfCode
         static NumberPosition[] ParseNumbers(string[] rows)
         {
             var regex = new Regex(@"\d+");
-            List<NumberPosition> numberPositions = new List<NumberPosition>();
+            List<NumberPosition> numberPositions = new();
 
             for (int i = 0; i < rows.Length; i++)
             {
@@ -82,7 +79,7 @@ namespace AdventOfCode
                     string value = match.Value;
                     int index = match.Index;
 
-                    NumberPosition numberPosition = new NumberPosition(int.Parse(value), i, index);
+                    NumberPosition numberPosition = new(int.Parse(value), i, index);
                     numberPositions.Add(numberPosition);
                 }
             }

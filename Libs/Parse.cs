@@ -2,7 +2,7 @@
 
 namespace AdventOfCode
 {
-    public class Parse
+    public static class Parse
     {
         public static long[] ParseStringToLongArray(string input)
         {

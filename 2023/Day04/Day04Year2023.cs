@@ -41,7 +41,7 @@ namespace AdventOfCode
 
         static int GetWinningCardCountFromInputLine(string line)
         {
-            var parts = line.Split(':', '|');
+            string[] parts = line.Split(':', '|');
             var l = from m in Regex.Matches(parts[1], @"\d+") select m.Value;
             var r = from m in Regex.Matches(parts[2], @"\d+") select m.Value;
             return l.Intersect(r).Count();

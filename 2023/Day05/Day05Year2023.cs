@@ -7,13 +7,13 @@
             var groups = input.Split("\n\n");
             long[] seeds = groups[0].Split(":")[1].Trim().Split(" ").Select(_ => long.Parse(_)).ToArray();
 
-            List<long> locations = new List<long>();
-            List<Ranges> rangesList = new List<Ranges>();
+            List<long> locations = new();
+            List<Ranges> rangesList = new();
             for (int i = 1; i < groups.Length; i++)
             {
                 var group = groups[i];
                 var rangesString = group.Split("\n");
-                List<Range> rangeList = new List<Range>();
+                List<Range> rangeList = new();
                 for (int j = 1; j < rangesString.Length; j++)
                 {
                     var range = ParseRange(rangesString[j]);
@@ -29,14 +29,14 @@
                 for (int j = 0; j < rangesList.Count; j++)
                 {
                     var ranges = rangesList[j];
-                    seed = (from r in ranges.ranges
-                            where r.sourceStart <= seed && seed < (r.sourceStart + r.length)
-                            select seed + r.destinationStart - r.sourceStart).FirstOrDefault(seed);
+                    seed = (from r in ranges.RangeArr
+                            where r.SourceStart <= seed && seed < (r.SourceStart + r.Length)
+                            select seed + r.DestinationStart - r.SourceStart).FirstOrDefault(seed);
                 }
                 locations.Add(seed);
             }
 
-            return locations.ToArray().Min();
+            return locations.Min();
         }
 
         // Optimisation needed /!\ surely not the way to solve it (>40 min treatment)
@@ -44,13 +44,13 @@
         {
             var groups = input.Split("\n\n");
             long[] inputSeeds = groups[0].Split(":")[1].Trim().Split(" ").Select(_ => long.Parse(_)).ToArray();
-            List<long> seedsList = new List<long>();
+            List<long> seedsList = new();
 
             for (int i = 0; i < inputSeeds.Length; i += 2)
             {
                 var seedstart = inputSeeds[i];
                 var seedlegth = inputSeeds[i + 1];
-                List<long> list = new List<long>();
+                List<long> list = new();
                 for (long j = seedstart; j < seedstart + seedlegth; j++)
                 {
                     list.Add(j);
@@ -60,13 +60,13 @@
 
             long[] seeds = seedsList.ToArray();
 
-            List<long> locations = new List<long>();
-            List<Ranges> rangesList = new List<Ranges>();
+            List<long> locations = new();
+            List<Ranges> rangesList = new();
             for (int i = 1; i < groups.Length; i++)
             {
                 var group = groups[i];
                 var rangesString = group.Split("\n");
-                List<Range> rangeList = new List<Range>();
+                List<Range> rangeList = new();
                 for (int j = 1; j < rangesString.Length; j++)
                 {
                     var range = ParseRange(rangesString[j]);
@@ -82,18 +82,18 @@
                 for (int j = 0; j < rangesList.Count; j++)
                 {
                     var ranges = rangesList[j];
-                    seed = (from r in ranges.ranges
-                            where r.sourceStart <= seed && seed < (r.sourceStart + r.length)
-                            select seed + r.destinationStart - r.sourceStart).FirstOrDefault(seed);
+                    seed = (from r in ranges.RangeArr
+                            where r.SourceStart <= seed && seed < (r.SourceStart + r.Length)
+                            select seed + r.DestinationStart - r.SourceStart).FirstOrDefault(seed);
                 }
                 locations.Add(seed);
             }
 
-            return locations.ToArray().Min();
+            return locations.Min();
         }
 
-        record Range(long destinationStart, long sourceStart, long length);
-        record Ranges(Range[] ranges);
+        record Range(long DestinationStart, long SourceStart, long Length);
+        record Ranges(Range[] RangeArr);
         static Range ParseRange(string line)
         {
             var ranges = line.Split(' ').Select(_ => long.Parse(_)).ToArray();
